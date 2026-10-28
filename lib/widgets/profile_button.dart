@@ -17,55 +17,64 @@ class ProfileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
 
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: screenHeight * 0.005),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(screenWidth * 0.035),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.15),
-          width: 1,
-        ),
-      ),
-      child: ListTile(
-        leading: Container(
-          padding: EdgeInsets.all(screenWidth * 0.025),
-          decoration: BoxDecoration(
-            color: Colors.blue.withValues(alpha: 0.2),
-            borderRadius: BorderRadius.circular(screenWidth * 0.02),
-          ),
-          child: Icon(
-            icon,
-            color: Colors.white,
-            size: screenWidth * 0.05,
-          ),
-        ),
-        title: Text(
-          title,
-          style: TextStyle(
-            fontSize: screenWidth * 0.04,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        subtitle: Text(
-          subtitle,
-          style: TextStyle(
-            fontSize: screenWidth * 0.032,
-            color: Colors.white60,
-          ),
-        ),
-        trailing: Icon(
-          Icons.arrow_forward_ios,
-          color: Colors.white60,
-          size: screenWidth * 0.04,
-        ),
+    return Material(
+      color: Colors.white.withValues(alpha: 0.04),
+      borderRadius: BorderRadius.circular(screenWidth * 0.04),
+      child: InkWell(
         onTap: onTap,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.04,
-          vertical: screenHeight * 0.005,
+        borderRadius: BorderRadius.circular(screenWidth * 0.04),
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.04,
+            vertical: screenWidth * 0.035,
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(screenWidth * 0.03),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(screenWidth * 0.025),
+                ),
+                child: Icon(
+                  icon,
+                  color: Colors.white,
+                  size: screenWidth * 0.06,
+                ),
+              ),
+              SizedBox(width: screenWidth * 0.04),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.042,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: screenWidth * 0.01),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: screenWidth * 0.032,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white70,
+                size: screenWidth * 0.04,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:anime_verse/screens/signup_screen.dart';
 import 'package:anime_verse/widgets/bottom_navigation_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../screens/detail_screen.dart';
 
 class AppRoutes {
@@ -19,7 +20,7 @@ class AppRoutes {
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
-GoRouter createRouter(){
+GoRouter createRouter() {
   // routes.dart
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
