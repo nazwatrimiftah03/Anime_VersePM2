@@ -1,56 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../data/dummy_data.dart';
-import '../models/anime.dart';
-import 'anime_card.dart';
+import '../config/routes.dart';
 
-class AnimeView extends StatelessWidget {
-  final List<Anime> animeList;
+class AnimeCard extends StatelessWidget {
+  final String id;
+  final String title;
+  final String imagePath;
 
-  const AnimeView({super.key, required this.animeList});
+  const AnimeCard({
+    super.key,
+    required this.id,
+    required this.title,
+    required this.imagePath,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).size.width * 0.04,
-      ),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          int crossAxisCount;
-          double childAspectRatio;
+    final screenWidth = MediaQuery.of(context).size.width;
 
-          if (constraints.maxWidth < 600) {
-            crossAxisCount = 3;
-            childAspectRatio = 0.55;
-          } else if (constraints.maxWidth < 900) {
-            crossAxisCount = 5;
-            childAspectRatio = 0.6;
-          } else {
-            crossAxisCount = (constraints.maxWidth / 200).floor().clamp(4, 6);
-            childAspectRatio = 0.8;
-          }
-
-          return GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
-              mainAxisSpacing: constraints.maxWidth * 0.03,
-              crossAxisSpacing: constraints.maxWidth * 0.05,
-              childAspectRatio: childAspectRatio,
+    return GestureDetector(
+      onTap: () {
+        context.push('${AppRoutes.details}/$id');
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(screenWidth * 0.03),
+              child: Image.asset(
+                imagePath,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
-            itemCount: animeList.length,
-            itemBuilder: (context, index) {
-              final anime = animeList[index];
-              return AnimeCard(
-                id: anime.id,
-                title: anime.title,
-                imagePath: anime.imagePath,
-              );
-            },
-          );
-        },
+          ),
+          SizedBox(height: screenWidth * 0.015),
+          Text(
+            title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: screenWidth * 0.033,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }
